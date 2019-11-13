@@ -3,9 +3,9 @@ name: API
 on:
   push:
     paths:
-      - apps/api
+    	- 'apps/api/**'
     branches:
-    - master
+		- master
 
 jobs:
   build-docker-image:
