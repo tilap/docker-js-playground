@@ -13,17 +13,21 @@ For a given `domain.tld`, it provides:
 
 Quick techstack overview:
 
-- api: a single api base on koajs
-- frontend: a client-side website base on create-react-app, empowered with craco
+- api: a single api based on koajs
+- frontend: a client-side website based on create-react-app, empowered with craco
 - homepage: a static dummy html website
-- a nginx reverse proxy to rule them all
+- a nginx reverse proxy to rule all the websites
 - database: a simple mongo
 
 ## Usage
 
-Add a domain name and some subdomain in your /etc/hosts. For example
+### Quick start
 
-```
+Make sure to have docker & docker-compose installed on your computer.
+
+Add a domain name and some subdomains in your /etc/hosts. For example:
+
+```sh
 127.0.0.1 tralala.io
 127.0.0.1 site1.tralala.io
 127.0.0.1 site2.tralala.io
@@ -31,9 +35,12 @@ Add a domain name and some subdomain in your /etc/hosts. For example
 
 Then:
 
-- git clone the repo
-- docker-compose build
-- DOMAIN=tralala.io docker-compose up
+```sh
+git clone https://github.com/tilap/docker-js-playground.git
+cd docker-js-playground
+docker-compose build
+DOMAIN=tralala.io docker-compose up
+```
 
 You're done. Then visit:
 
@@ -41,19 +48,30 @@ You're done. Then visit:
 - http://tralala.io/api => to access the api (/api/get and /api/insert)
 - http://site1.tralala.io/, http://site2.tralala.io/
 
-The site app (app1.domain.tld) provide a client side nav with a page fetching data from the server and a button to insert a row in the database.
+The site app (site1.domain.tld) provide a client side nav with a page fetching data from the server and a button to insert a row in the database.
 
-## Out of the project
+### Other options
+
+Env vars when uping your docker-compose:
+
+- `DOMAIN`: a domain (or subdomain)
+- `LOGS_PATH` (default ./logs): local folder where logs will be stored
+- `MONGO_PATH` (default ./data/mongo): local folder where mongo data will be stored
+
+## Out of the scope of the project
 
 This is a bare project made of almost nothing. Code is just a minimal one, the important part is the docker playground, apps are just there to make it understanable :)
 
-## Todo (Later?)
+## Ideas for later?
 
-Idea is not about code stack (js), but about docker stack
+Idea is not about code stack (js), but about docker stack.
 
-- expand docker-compose.yml for test and dev env (and duplicate production.nginx.conf for a dev.nginx.conf)
-- add letsencrypt for domains, subdomains and so on
-- move api expose as a graphql (but not my needs today)
+- Add USER in dockerfiles (instead of root)?
+- Expand docker-compose.yml for test and dev env (and duplicate production.nginx.conf for a dev.nginx.conf)?
+- Add letsencrypt for domains, subdomains and so on?
+- Move api expose as a graphql?
+- Add a [docker-weblate](https://github.com/beevelop/docker-weblate) docker image to manage translation of the apps?
+- Split the apps over many repos?
 
 ## LICENSE
 
