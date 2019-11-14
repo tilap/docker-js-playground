@@ -54,7 +54,7 @@ The site app (site1.domain.tld) provide a client side nav with a page fetching d
 
 Env vars when uping your docker-compose:
 
-- `DOMAIN`: a domain (or subdomain)
+- `DOMAIN`: (default domain.tld): a domain (or subdomain)
 - `LOGS_PATH` (default ./logs): local folder where logs will be stored
 - `MONGO_PATH` (default ./data/mongo): local folder where mongo data will be stored
 

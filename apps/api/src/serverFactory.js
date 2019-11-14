@@ -3,10 +3,9 @@ import Koa from 'koa';
 import helmet from 'koa-helmet';
 import bodyparser from 'koa-bodyparser';
 import cors from '@koa/cors';
-import json from 'koa-json';
 import Router from 'koa-router';
 
-const serverFactory = ({ getCollection, secrets }) => {
+const serverFactory = ({ domain, getCollection, secrets }) => {
   // Check config
   assert(secrets, 'Config error: missing secrets');
 
@@ -21,8 +20,22 @@ const serverFactory = ({ getCollection, secrets }) => {
   app.use(helmet());
   app.use(bodyparser());
 
-  // /!\ Ultra lazy quick way to allow anyting ^^
-  app.use(cors({ origin: ctx => ctx.request.header.origin }));
+  // Cors only accept subdomains queries
+  app.use(cors({ origin: ctx => {
+    const { origin } = ctx.request.header;
+    if (!origin.endsWith(domain)) {
+      throw new Error('Access denied');
+    }
+    return ctx.request.header.origin
+  }}));
+
+  // Add subdomaain in context so we know if witch website we are over the api
+  app.use((ctx, next) => {
+    const { origin } = ctx.request.header;
+    const subdomain = `${origin}`.substring(0, origin.length - domain.length);
+    ctx.state = ctx.state ? {...ctx.state, subdomain } : { subdomain };
+    return next();
+  })
 
   const router = new Router();
 
@@ -44,14 +57,16 @@ const serverFactory = ({ getCollection, secrets }) => {
   });
 
   router.get('/insert', async ctx => {
+    const { subdomain } = ctx.state;
     const collection = await getCollection('items');
-    const result = await collection.insertOne({ date: Date.now() });
+    const result = await collection.insertOne({ date: Date.now(), subdomain });
     ctx.body = { insert: result };
   });
 
   router.get('/get', async ctx => {
+    const { subdomain } = ctx.state;
     const collection = await getCollection('items');
-    const result = await collection.find({}).toArray();
+    const result = await collection.find({ subdomain }).toArray();
     ctx.body = { items: result };
   });
 
