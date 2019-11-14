@@ -1,7 +1,3 @@
 # Api
 
-xoxo
-
-xoxo
-
-xoxo
+xo
