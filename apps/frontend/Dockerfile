@@ -1,5 +1,5 @@
 # base
-FROM mhart/alpine-node:10.17 AS base
+FROM mhart/alpine-node:12.13.1 AS base
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -18,7 +18,7 @@ COPY . .
 
 RUN yarn run build
 
-FROM nginx
+FROM nginx:1.17.5-alpine
 
 COPY --from=build /usr/src/app/build /var/www
 COPY nginx.conf /etc/nginx/conf.d/default.conf

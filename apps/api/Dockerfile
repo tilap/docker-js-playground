@@ -1,5 +1,5 @@
 # base
-FROM mhart/alpine-node:10.17 AS base
+FROM mhart/alpine-node:12.13.1 AS base
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
