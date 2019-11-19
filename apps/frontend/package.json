@@ -35,7 +35,7 @@
     "typeface-roboto": "0.0.75",
     "webpack-bundle-analyzer": "3.6.0",
     "webpackbar": "4.0.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "3.0.0"
   },
   "resolutions": {
     "@babel/core": "7.4.3"
