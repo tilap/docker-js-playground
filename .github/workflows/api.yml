@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'apps/api/**'
+      - '!apps/api/*.md'
     branches:
       - master
 

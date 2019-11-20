@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'apps/frontend/**'
+      - '!apps/frontend/*.md'
     branches:
       - master
 
