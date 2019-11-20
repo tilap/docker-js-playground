@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'apps/homepage/**'
+      - '!apps/homepage/*.md'
     branches:
       - master
 
