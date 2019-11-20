@@ -9,7 +9,18 @@ COPY package.json yarn.lock ./
 # dependancies
 FROM base AS dependancies
 
-RUN yarn install --no-cache --frozen-lockfile --production;
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
+RUN set -ex; \
+  if [ "$NODE_ENV" = "production" ]; then \
+    echo "production build"; \
+    yarn install --no-cache --frozen-lockfile --production; \
+  else \
+    echo "development build, no install"; \
+  fi;
+
+# RUN yarn install --no-cache --frozen-lockfile --production;
 
 # build
 FROM dependancies AS build

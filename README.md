@@ -21,7 +21,9 @@ Quick techstack overview:
 
 ## Usage
 
-### Quick start
+### Production
+
+#### Quick start
 
 Make sure to have docker & docker-compose installed on your computer.
 
@@ -48,9 +50,26 @@ You're done. Then visit:
 - http://tralala.io/api => to access the api (/api/get and /api/insert)
 - http://site1.tralala.io/, http://site2.tralala.io/
 
-The site app (site1.domain.tld) provide a client side nav with a page fetching data from the server and a button to insert a row in the database.
+The "site" app (site1.domain.tld for example) provides a client side nav with a page fetching data from the server and a button to insert a row in the database.
 
-### Other options
+### Development
+
+To dev on this stack, an extra docker-compose file is provided (docker-compose.dev.yml) to make dev env works.
+
+Once the repo clonse, you can run
+
+```sh
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+DOMAIN=tralala.io docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+```
+
+Then for:
+
+- **frontend**: go in the apps/frontend, yarn install and yarn start. Any local change will be live reloaded
+- **homepage**: go in the apps/homepage/src. Any change will be take into account on homepage reload (no live reload yet)
+- **api**: TODO
+
+### Other build options
 
 Env vars when uping your docker-compose:
 
