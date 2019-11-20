@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.2"
 
 services:
   nginx:
@@ -9,7 +9,12 @@ services:
   frontend:
     environment:
       - NODE_ENV=development
+  api:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./apps/api/src:/usr/src/app/src
+    command: sh -c "/usr/wait-for.sh mongo:27017 -- yarn run start"
   homepage:
     volumes:
       - ./apps/homepage/src:/var/www
-  
