@@ -36,7 +36,7 @@ const App = () => {
           <Box py={4}>
             <Router />
           </Box>
-      </Container>
+        </Container>
       </main>
     </>
   );

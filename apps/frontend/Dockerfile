@@ -14,20 +14,25 @@ ENV NODE_ENV $NODE_ENV
 
 RUN set -ex; \
   if [ "$NODE_ENV" = "production" ]; then \
-    echo "production build"; \
+    echo "install production dependancies"; \
     yarn install --no-cache --frozen-lockfile --production; \
   else \
-    echo "development build, no install"; \
+    echo "development, no dependancies"; \
   fi;
-
-# RUN yarn install --no-cache --frozen-lockfile --production;
 
 # build
 FROM dependancies AS build
 
 COPY . .
 
-RUN yarn run build
+RUN set -ex; \
+  if [ "$NODE_ENV" = "production" ]; then \
+    echo "production build"; \
+    yarn run build; \
+  else \
+    mkdir -p /usr/src/app/build; \
+  fi;
+
 
 FROM nginx:1.17.5-alpine
 

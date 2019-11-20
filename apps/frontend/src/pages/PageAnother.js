@@ -3,10 +3,10 @@ import Helmet from 'react-helmet';
 import { Button } from '@material-ui/core';
 import config from 'config';
 
-const fetchApiData = async (type) => {
+const fetchApiData = async type => {
   const response = await fetch(`${config.apiUrl}/${type}`);
   return response.json();
-}
+};
 
 export default () => {
   const [data, setData] = useState(null);
@@ -15,11 +15,10 @@ export default () => {
   useEffect(() => {
     if (data === null && !fetching) {
       setFetching(true);
-      fetchApiData('get')
-        .then((result) => {
-          setData(result);
-          setFetching(false);
-        });
+      fetchApiData('get').then(result => {
+        setData(result);
+        setFetching(false);
+      });
     }
   }, [data, fetching]);
 
@@ -29,11 +28,10 @@ export default () => {
       return false;
     }
     setPosting(true);
-    fetchApiData('insert')
-      .then(() => {
-        setData(null);
-        setPosting(false);
-      });
+    fetchApiData('insert').then(() => {
+      setData(null);
+      setPosting(false);
+    });
   };
 
   return (
@@ -45,7 +43,9 @@ export default () => {
       {data !== null && (
         <div>
           {data.items.map((item, k) => (
-            <div key={k}>{item._id} - {item.date}</div>
+            <div key={k}>
+              {item._id} - {item.date}
+            </div>
           ))}
         </div>
       )}
