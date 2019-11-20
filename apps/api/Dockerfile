@@ -9,7 +9,17 @@ COPY package.json yarn.lock ./
 # dependancies
 FROM base AS dependancies
 
-RUN yarn install --no-cache --frozen-lockfile --production;
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
+RUN set -ex; \
+  if [ "$NODE_ENV" = "production" ]; then \
+    echo "install production dependancies"; \
+    yarn install --no-cache --frozen-lockfile --production; \
+  else \
+    echo "install development dependancies"; \
+    yarn install --no-cache --development; \
+  fi;
 
 # build
 FROM dependancies AS build
@@ -20,4 +30,4 @@ RUN yarn run build
 
 EXPOSE 3000
 
-CMD ["node", "build/index.js"]
+CMD ["yarn", "serve"]

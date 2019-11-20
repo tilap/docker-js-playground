@@ -1,4 +1,4 @@
-version: '3.2'
+version: "3.2"
 
 networks:
   webapp:
@@ -36,9 +36,8 @@ services:
       - NODE_ENV=production
       - API_URL=http://${DOMAIN:-domain.tld}/api
     volumes:
-      - /usr/src/app/node_modules
       - ${LOGS_PATH:-./logs}/frontend:/var/log/nginx
-  
+
   api:
     container_name: api
     build: ./apps/api
@@ -55,10 +54,9 @@ services:
       - API_PORT=3000
       - DOMAIN=${DOMAIN:-domain.tld}
     volumes:
-      - /usr/src/app/node_modules
       - ./wait-for.sh:/usr/wait-for.sh
     command: sh -c "/usr/wait-for.sh mongo:27017 -- node build/index.js"
-  
+
   homepage:
     container_name: homepage
     build: ./apps/homepage
@@ -66,7 +64,7 @@ services:
       - webapp
     volumes:
       - ${LOGS_PATH:-./logs}/homepage:/var/log/nginx
-  
+
   mongo:
     container_name: mongo
     image: mongo:4.2.1
