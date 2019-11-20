@@ -72,8 +72,6 @@ services:
     image: mongo:4.2.1
     networks:
       - webapp
-    # ports:
-    #   - "27017:27017"
     restart: unless-stopped
     volumes:
       - ${MONGO_PATH:-./data/mongo}:/data/db
