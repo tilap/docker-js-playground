@@ -85,12 +85,13 @@ This is a bare project made of almost nothing. Code is just a minimal one, the i
 
 Idea is not about code stack (js), but about docker stack.
 
-- Add USER in dockerfiles (instead of root)?
-- Expand docker-compose.yml for test and dev env (and duplicate production.nginx.conf for a dev.nginx.conf)?
-- Add letsencrypt for domains, subdomains and so on?
-- Move api expose as a graphql?
-- Add a [docker-weblate](https://github.com/beevelop/docker-weblate) docker image to manage translation of the apps?
-- Split the apps over many repos?
+- [ ] Add USER in dockerfiles (instead of root)
+- [X] Expand docker-compose.yml for and dev env (and duplicate nginx.production.conf for a dev.nginx.conf)
+- [ ] Add letsencrypt for domains, subdomains and so on
+- [ ] Add a github action to trigger a deploy on remote server
+- [ ] (?) Move api expose as a graphql
+- [ ] (?) Add a [docker-weblate](https://github.com/beevelop/docker-weblate) docker image to manage translation of the apps
+- [ ] (?) Split the apps over many repos
 
 ## LICENSE
 

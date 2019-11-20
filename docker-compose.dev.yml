@@ -3,7 +3,7 @@ version: "3.2"
 services:
   nginx:
     volumes:
-      - ./development.nginx.conf:/etc/nginx/conf.d/site.template:ro
+      - ./nginx.development.conf:/etc/nginx/conf.d/site.template:ro
     environment:
       - REACT_PORT_DEV=3000
   frontend:
